@@ -105,7 +105,7 @@ function handleEvents() {
       case 'go': break;
       case 'eat': { const o = e.o; A.sfx.gulp(e, panOf(o.x, o.z), Q.kids); W.mouthOpen = Math.min(1, .35 + o.s / Q.b.r); W.blobU.uGulp.value = Math.max(W.blobU.uGulp.value, Math.min(.6, o.s / Q.b.r * .8));
         sparks(F, _v.set(o.x, Math.min(o.h, Q.b.r) * .6, o.z), 6 + Math.min(30, Math.round(o.s * 8)), { colors: GOO, speed: 1.2 + o.s * 1.2, up: 1.4, life: .7, size: .05 + o.s * .05, grav: 3 });
-        if (o.s > Q.b.r * .45 || o.s >= 1.5) { popAt(`+${fmt(e.pts)} ${t(o.type)}`, '#c8ffd6', o.s > 2 ? 'big' : '', _w.set(o.x, o.h * .8, o.z)); S.punch = Math.max(S.punch, .25); if (o.s > 1.5) puff(F, _w.set(o.x, .5, o.z), 2, '#6a6080', 1 + o.s * .3); }
+        if (o.s > Q.b.r * .45 || o.s >= 1.5) { popAt(`+${fmt(e.pts)} ${t(o.type)}`, '#c8ffd6', o.s > 2 ? 'pbig' : '', _w.set(o.x, o.h * .8, o.z)); popLimit = S.gt + .6; S.punch = Math.max(S.punch, .25); if (o.s > 1.5) puff(F, _w.set(o.x, .5, o.z), 2, '#6a6080', 1 + o.s * .3); }
         else if (S.gt > popLimit && e.combo > 1 && e.combo % 5 === 0) { popAt(`${t('chain')} ${e.combo} ×${e.mult}`, '#9affb8', 'small', null); popLimit = S.gt + .4; }
         if ([8, 16, 24, 40, 60].includes(e.combo)) banner(`🟢 ${e.combo} ${t('chain')} · ×${e.mult}`);
         hideHint(); break; }
@@ -219,7 +219,7 @@ function showEnd() { const r = S.result, duel = S.mode === 'duel'; let title;
 function showHintText() { $('hintT').textContent = t(isTouch ? 'hintTouch' : 'hintKeys'); const g = Q && Q.goalObj ? t('g' + NIGHTS.findIndex(n => n.goal === Q.goalObj.type)) : ''; $('hintG').textContent = g ? `${t('hintGoal')} ${g} 🎯` : t('endlessInfo'); }
 function hideHint() { if (S.hintT < 0) return; S.hintT = -1; $('hint').classList.remove('show'); }
 function popAt(txt, col, cls, at) { (window.__pops = window.__pops || []).push(txt); let x = 0, y = -VH * .08; if (at) { _sp.copy(at).project(camera); if (_sp.z < 1) { x = clamp(_sp.x * .5 * VW, -VW * .36, VW * .36); y = clamp(-_sp.y * .5 * VH, -VH * .3, VH * .25); } }
-  const el = document.createElement('div'); el.className = 'pop ' + (cls || ''); el.textContent = txt; el.style.color = col; el.style.left = x + 'px'; el.style.top = y + 'px'; el.dataset.t0 = S.gt; $('pops').appendChild(el); const hw = el.offsetWidth * (cls === 'big' ? .62 : .55) + 8; if (hw * 2 < VW) el.style.left = clamp(x, -VW / 2 + hw, VW / 2 - hw) + 'px'; if ($('pops').children.length > 7) $('pops').firstChild.remove(); }
+  const el = document.createElement('div'); el.className = 'pop ' + (cls || ''); el.textContent = txt; el.style.color = col; el.style.left = x + 'px'; el.style.top = y + 'px'; el.dataset.t0 = S.gt; $('pops').appendChild(el); const hw = el.offsetWidth * (cls === 'pbig' ? .62 : .55) + 8; if (hw * 2 < VW) el.style.left = clamp(x, -VW / 2 + hw, VW / 2 - hw) + 'px'; if ($('pops').children.length > 7) $('pops').firstChild.remove(); }
 function banner(s) { if (!s) return; (window.__banners = window.__banners || []).push(s); const el = $('banner'); el.textContent = s; el.dataset.t0 = S.gt; el.classList.add('show'); el.style.transform = 'translate(-50%,-50%)'; el.dataset.fit = Math.min(1, innerWidth * .92 / Math.max(1, el.scrollWidth)).toFixed(3); }
 function toast(s) { if (S.state !== 'play') return; const el = $('toast'); el.textContent = s; el.classList.add('show'); el.dataset.t0 = S.gt; }
 function toScreen(p) { _sp.copy(p).project(camera); return { x: (_sp.x * .5 + .5) * VW, y: (-_sp.y * .5 + .5) * VH, z: _sp.z }; }

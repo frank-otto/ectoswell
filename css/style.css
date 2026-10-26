@@ -24,7 +24,7 @@ body[data-state=play] #btnGear, body[data-state=intro] #btnGear, body[data-state
 /* ---------- banners, pops, night card ---------- */
 #pops { position: fixed; left: 50%; top: 44%; width: 0; height: 0; z-index: 5; pointer-events: none; }
 .pop { position: absolute; white-space: nowrap; font-weight: 700; font-size: 22px; text-shadow: 0 2px 0 rgba(20, 6, 10, .9), 0 0 16px rgba(0, 0, 0, .7); will-change: transform, opacity; }
-.pop.big { font-size: 30px; }
+.pop.pbig { font-size: 30px; }
 #banner { position: fixed; left: 50%; top: 30%; transform: translate(-50%, -50%); z-index: 6; pointer-events: none; opacity: 0; white-space: nowrap; font-weight: 700; font-size: clamp(30px, 7vw, 74px); letter-spacing: .04em;
   background: linear-gradient(180deg, #ffffff, #d8e8ff 55%, #7aa0ff); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 3px 0 rgba(6, 10, 40, .8)) drop-shadow(0 0 26px rgba(140, 190, 255, .5)); }
 #banner:not(.show) { visibility: hidden; }
